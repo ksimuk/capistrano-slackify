@@ -16,11 +16,12 @@ module Slackify
 
     def self.send(slack_url, params)
       uri = URI(slack_url)
-      Net::HTTP.post_form(uri, params)
+      data = {'payload' => params}
+      Net::HTTP.post_form(uri, data)
     end
 
     def build(channel)
-      Shellwords.escape("payload=#{payload(channel)}")
+      Shellwords.escape(payload(channel))
     end
 
     def payload(channel)
