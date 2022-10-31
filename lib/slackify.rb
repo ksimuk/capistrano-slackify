@@ -15,7 +15,7 @@ module Slackify
     end
 
     def self.send(slack_url, text)
-      uri = URI(URI.encode(slack_url))
+      uri = URI(slack_url)
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
         http.request_post uri, text
       end
