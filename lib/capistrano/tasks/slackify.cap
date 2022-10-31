@@ -26,9 +26,7 @@ namespace :slack do
       if fetch(:slack_notify_events).include? :finished
         info 'Notifying Slack of deploy finished'
         Array(fetch(:slack_channel)).each {|channel|
-          execute :curl, '-X POST', '-s', '--data-urlencode',
-            Slackify::Payload.build(self, :success, channel),
-            fetch(:slack_url)
+          Slackify::Payload.send fetch(:slack_url),   Slackify::Payload.build(self, :success, channel)
         }
         end
     end
@@ -45,9 +43,7 @@ namespace :slack do
         info 'Notifying Slack of deploy failed'
 
         Array(fetch(:slack_channel)).each {|channel|
-          execute :curl, '-X POST', '-s', '--data-urlencode',
-            Slackify::Payload.build(self, :failed, channel),
-            fetch(:slack_url)
+          Slackify::Payload.send fetch(:slack_url), Slackify::Payload.build(self, :failed, channel)
         }
       end
     end

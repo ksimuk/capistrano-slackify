@@ -1,5 +1,6 @@
 require 'multi_json'
 require 'shellwords'
+require 'net/http'
 
 module Slackify
   class Payload
@@ -11,6 +12,14 @@ module Slackify
 
     def self.build(context, status, channel)
       new(context, status).build(channel)
+    end
+
+    def send(slack_url, text)
+      uri = URI(URI.encode(slack_url))
+      text = text
+      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+        http.request_post uri, text
+      end
     end
 
     def build(channel)
