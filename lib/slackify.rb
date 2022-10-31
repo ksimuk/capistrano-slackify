@@ -14,7 +14,7 @@ module Slackify
       new(context, status).build(channel)
     end
 
-    def self.send(slack_url, text)
+    def self.send(context, slack_url, text)
       uri = URI(URI.encode(slack_url))
       text = text
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
