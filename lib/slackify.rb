@@ -24,7 +24,7 @@ module Slackify
     end
 
     def build(channel)
-      Shellwords.escape(payload(channel))
+      payload(channel)
     end
 
     def payload(channel)
