@@ -18,8 +18,6 @@ module Slackify
     def self.send(slack_url, params)
       uri = URI(slack_url)
       data = {'payload' => params}
-      print(uri)
-      print(data)
       Net::HTTP.post_form(uri, data)
     end
 
